@@ -1,16 +1,22 @@
-h1 {
+/*& header*/
+header {
+    color: #4d54d6;
     text-align: center;
+    padding: 1px;
+    font-family: "Comic Sans MS", sans-serif;
 }
 
 /*& game board*/
 #game-board {
+    color: #4d54d6; /* color of letter */
     display: flex;
     align-items: center;
     flex-direction: column;
 }
 
 .letter-box {
-    border: 2ps solid gray;
+    border: 2px solid #F64A8A;
+    background-color:#C4E5FB;
     border-radius: 3px;
     margin: 2px;
     font-size: 2.5rem;
@@ -48,6 +54,7 @@ h1 {
 }
 
 .keyboard-button {
+    border: 2px solid #B200ED;
     font-size: 1rem;
     font-weight: 700;
     padding: 0.5rem;
