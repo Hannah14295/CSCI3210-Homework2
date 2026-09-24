@@ -1,6 +1,6 @@
 /*& header*/
 header {
-    color: #4d54d6;
+    color: #6356C7;
     text-align: center;
     padding: 1px;
     font-family: "Comic Sans MS", sans-serif;
@@ -8,7 +8,7 @@ header {
 
 /*& game board*/
 #game-board {
-    color: #4d54d6; /* color of letter */
+    color: #286ACD; /* 4d54d6 color of letter */
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -30,7 +30,7 @@ header {
 }
 
 .filled-box {
-    border: 2px solid black;
+    border: 2px solid #B5338A;
 }
 
 .letter-row {

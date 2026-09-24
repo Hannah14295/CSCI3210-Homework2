@@ -7,6 +7,10 @@ let nextLetter = 0;
 let rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
 console.log(rightGuessString);
 
+const CORRECT_COLOR = "#9B8FE3";
+const WRONG_POSITION_COLOR = "#E58BA8";
+const NOT_IN_WORD_COLOR = "#8FA8BA";
+
 //& Board init
 function initBoard() {
     let board = document.getElementById("game-board");
@@ -30,11 +34,11 @@ function shadeKeyBoard(letter, color) {
         if (elem.textContent === letter) {
         
             let oldColor = elem.style.backgroundColor;
-            if (oldColor === 'green') {
+            if (oldColor === CORRECT_COLOR) {
                 return;
             }
 
-            if (oldColor === 'yellow' && color !== 'green') {
+            if (oldColor === WRONG_POSITION_COLOR && color !== CORRECT_COLOR) {
                 return;
             }
 
@@ -82,17 +86,15 @@ function checkGuess () {
         let letterPosition = rightGuess.indexOf(currentGuess[i])
         // is letter in the correct guess
         if (letterPosition === -1) {
-            letterColor = 'grey';
+            letterColor = NOT_IN_WORD_COLOR;
         } else {
             // now, letter is definitely in word
             // if letter index and right guess index are the same
             // letter is in the right position
             if (currentGuess[i] === rightGuess[i]) {
-                // shade green
-                letterColor = 'green';
+                letterColor = CORRECT_COLOR;
             } else {
-                // shade box yellow
-                letterColor = 'yellow';
+                letterColor = WRONG_POSITION_COLOR;
             }
 
             rightGuess[letterPosition] = "#";
@@ -103,23 +105,23 @@ function checkGuess () {
             // flip box
             animateCSS(box, 'flipInX');
             // shade box
-            box.style.backgroundColor = letterColor[i];
-            shadeKeyBoard(guessString.charAt(i) + "", letterColor[i]);
+            box.style.backgroundColor = letterColor;
+            shadeKeyBoard(guessString.charAt(i), letterColor[i]);
         }, delay);
+    }
 
-        if (guessString === rightGuessString) {
-            toastr.success("You guessed right! Game over!");
-            guessesRemaining = 0;
-            return;
-        } else {
-            guessesRemaining -= 1;
-            currentGuess = [];
-            nextLetter = 0;
+    if (guessString === rightGuessString) {
+        toastr.success("You guessed right! Game over!");
+        guessesRemaining = 0;
+        return;
+    } else {
+        guessesRemaining -= 1;
+        currentGuess = [];
+        nextLetter = 0;
 
-            if (guessesRemaining === 0) {
-                toastr.error("You've run out of guesses! Game over!");
-                toastr.info(`The right word was: "${rightGuessString}"`);
-            }
+        if (guessesRemaining === 0) {
+            toastr.error("You've run out of guesses! Game over!");
+            toastr.info(`The right word was: "${rightGuessString}"`);
         }
     }
 }
