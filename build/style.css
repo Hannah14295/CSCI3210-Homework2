@@ -8,7 +8,7 @@ header {
 
 /*& game board*/
 #game-board {
-    color: #286ACD; /* 4d54d6 color of letter */
+    color: #286ACD; /* color of letter */
     display: flex;
     align-items: center;
     flex-direction: column;

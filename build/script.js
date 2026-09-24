@@ -12,11 +12,12 @@ const WRONG_POSITION_COLOR = "#E58BA8";
 const NOT_IN_WORD_COLOR = "#9BB2C3";
 
 //& Timer
-let timeleft = 90; // user can edit
+let timeleft = 120; // user can edit
 let timerInterval;
 let timerStarted = false;
 
 const timerLengthInput = document.getElementById("timer-length");
+timerLengthInput.value = timeleft;
 
 function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);
@@ -299,4 +300,3 @@ document.getElementById("keyboard-cont").addEventListener("click", (e) => {
 //! Call to init
 initBoard();
 updateTimer();
-celebrateWin();
