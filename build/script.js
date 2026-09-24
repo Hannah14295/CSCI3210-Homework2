@@ -70,6 +70,33 @@ function stopTimer() {
     clearInterval(timerInterval);
 }
 
+//& Confetti
+function celebrateWin() {
+    const colors = [
+        "#9B8FE3",
+        "#E58BA8",
+        "#9BB2C3",
+        "#F64A8A",
+        "#C4E5FB"
+    ];
+
+    confetti({
+        particleCount: 300,
+        angle: 60,
+        spread: 100,
+        origin: {x: 0, y: 0.65},
+        colors: colors
+    });
+
+    confetti({
+        particleCount: 300,
+        angle: 120,
+        spread: 100,
+        origin: {x: 1, y: 0.65},
+        colors: colors
+    });
+}
+
 //& Board init
 function initBoard() {
     let board = document.getElementById("game-board");
@@ -172,6 +199,7 @@ function checkGuess () {
     if (guessString === rightGuessString) {
         stopTimer();
         guessesRemaining = 0;
+        celebrateWin();
         toastr.success(`You guessed right with ${formatTime(timeleft)} left! Game over!`);
         return;
     } else {
@@ -271,3 +299,4 @@ document.getElementById("keyboard-cont").addEventListener("click", (e) => {
 //! Call to init
 initBoard();
 updateTimer();
+celebrateWin();
