@@ -62,3 +62,12 @@ header {
     cursor: pointer;
     text-transform: uppercase;
 }
+
+/*& timer*/
+#timer {
+    color: #6356C7;
+    font-family: "Comic Sans MS", sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0.5rem 0 1rem;
+}

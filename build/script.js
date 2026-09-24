@@ -9,7 +9,50 @@ console.log(rightGuessString);
 
 const CORRECT_COLOR = "#9B8FE3";
 const WRONG_POSITION_COLOR = "#E58BA8";
-const NOT_IN_WORD_COLOR = "#8FA8BA";
+const NOT_IN_WORD_COLOR = "#9BB2C3";
+
+//& Timer
+const TIMER_COUNTDOWN = 90; // in seconds
+let timeleft = TIMER_COUNTDOWN;
+let timerInterval;
+let timerStarted = false;
+
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+
+    return `${String(minutes).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
+}
+
+function updateTimer() {
+    document.getElementById("timer").textContent = `Time left: ${formatTime(timeleft)}`;
+}
+
+function startTimer() {
+    // Prevent a new internval from starting for ever letter entered
+    if (timerStarted) {
+        return
+    }
+
+    timerStarted = true;
+    updateTimer();
+
+    timerInterval = setInterval(() => {
+        timeleft -= 1;
+        updateTimer();
+
+        if (timeleft <= 0) {
+            stopTimer();
+            guessesRemaining = 0;
+            toastr.error("Time is up! Game over!");
+            toastr.info(`The right word was: "${rightGuessString}"`);
+        }
+    }, 1000);
+}
+
+function stopTimer() {
+    clearInterval(timerInterval);
+}
 
 //& Board init
 function initBoard() {
@@ -106,13 +149,14 @@ function checkGuess () {
             animateCSS(box, 'flipInX');
             // shade box
             box.style.backgroundColor = letterColor;
-            shadeKeyBoard(guessString.charAt(i), letterColor[i]);
+            shadeKeyBoard(guessString.charAt(i), letterColor);
         }, delay);
     }
 
     if (guessString === rightGuessString) {
-        toastr.success("You guessed right! Game over!");
+        stopTimer();
         guessesRemaining = 0;
+        toastr.success(`You guessed right with ${formatTime(timeleft)} left! Game over!`);
         return;
     } else {
         guessesRemaining -= 1;
@@ -120,6 +164,7 @@ function checkGuess () {
         nextLetter = 0;
 
         if (guessesRemaining === 0) {
+            stopTimer();
             toastr.error("You've run out of guesses! Game over!");
             toastr.info(`The right word was: "${rightGuessString}"`);
         }
@@ -131,6 +176,9 @@ function insertLetter (pressedKey) {
     if (nextLetter === 5) {
         return;
     }
+
+    startTimer(); 
+
     pressedKey = pressedKey.toLowerCase();
 
     let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
@@ -206,3 +254,4 @@ document.getElementById("keyboard-cont").addEventListener("click", (e) => {
 
 //! Call to init
 initBoard();
+updateTimer();
