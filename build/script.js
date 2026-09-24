@@ -12,10 +12,11 @@ const WRONG_POSITION_COLOR = "#E58BA8";
 const NOT_IN_WORD_COLOR = "#9BB2C3";
 
 //& Timer
-const TIMER_COUNTDOWN = 90; // in seconds
-let timeleft = TIMER_COUNTDOWN;
+let timeleft = 90; // user can edit
 let timerInterval;
 let timerStarted = false;
+
+const timerLengthInput = document.getElementById("timer-length");
 
 function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);
@@ -28,13 +29,28 @@ function updateTimer() {
     document.getElementById("timer").textContent = `Time left: ${formatTime(timeleft)}`;
 }
 
+timerLengthInput.addEventListener("input", () => {
+    if (timerStarted) {
+        return
+    }
+
+    const enteredTime = timerLengthInput.valueAsNumber;
+
+    if (Number.isNaN(enteredTime) || enteredTime < 1) {
+        return
+    }
+
+    timeleft = Math.floor(enteredTime);
+    updateTimer();
+})
+
 function startTimer() {
-    // Prevent a new internval from starting for ever letter entered
     if (timerStarted) {
         return
     }
 
     timerStarted = true;
+    timerLengthInput.disabled = true;
     updateTimer();
 
     timerInterval = setInterval(() => {

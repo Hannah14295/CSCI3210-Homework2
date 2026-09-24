@@ -71,3 +71,13 @@ header {
     font-weight: 700;
     margin: 0.5rem 0 1rem;
 }
+
+/*& time-limit*/
+.time-limit {
+    color: #6356C7;
+    text-align: center;
+    font-family: "Comic Sans MS", sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0.5rem 0 1rem;
+}
